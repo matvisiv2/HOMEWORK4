@@ -27,12 +27,45 @@ function task01 () {
     }
 }
 
-// 2. Напишіть функцію checkAge(), яка пропонуватиме юзеру ввести свій вік і генерувати в модальному вікні помилки у випадку, коли:
+// 2. Напишіть функцію checkAge(), яка пропонуватиме юзеру ввести свій вік
+// і генерувати в модальному вікні помилки у випадку, коли:
 // 	- юзер ввів порожню стрічку (наприклад “The field is empty! Please enter your age”),
 // 	- нечислове значення
 // 	- вік юзера менше 14 років.
 // В іншому разі юзер отримує доступ до перегляду фільму.
 // В блокові catch передбачити виведення назви і опису помилки.
+function checkAge () {
+    const age = prompt('Enter your age:');
+    if (age.trim() == '') {
+        throw new Error('The field is empty! Please enter your age');
+    }
+    if (isNaN(age)) {
+        throw new Error("The value isn't a number! Please enter your age");
+    }
+
+    if (age < 14) {
+        throw new Error('You are too young!');
+    }
+}
+
+function task02 () {
+    const resElement = document.getElementById('resultT02');
+    const accessAllowedElement = document.getElementById('accessAllowedT02');
+    const accessDeniedElement = document.getElementById('accessDeniedT02');
+    try {
+        checkAge();
+        accessAllowedElement.removeAttribute('hidden');
+        accessDeniedElement.setAttribute('hidden', 'true');
+        resElement.setAttribute('class', 'task-result');
+        resElement.innerHTML = 'Access allowed';
+    } catch (err) {
+        alert(err);
+        accessAllowedElement.setAttribute('hidden', 'true');
+        accessDeniedElement.removeAttribute('hidden');
+        resElement.setAttribute('class', 'access-denied');
+        resElement.innerHTML = 'Access denied';
+    }
+}
 
 // 3. Створіть клас MonthException, конструктор якого приймає параметр message і ініціалізує поле name значенням 'MonthException'.
 // Реалізуйте функцію showMonthName(month), в якій параметр month – це порядковий номер місяця в році. Функція повертає назву місяця відповідно до введеного номера місяця. У випадку некоректного вводу кидається ексепшн у вигляді об’єкта класу MonthException з повідомленням 'Incorrect month number'.

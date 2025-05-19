@@ -7,3 +7,9 @@
     font-weight: bolder;
     color      : green;
 }
+
+.access-denied {
+    font-size  : 24px;
+    font-weight: bolder;
+    color      : red;
+}
