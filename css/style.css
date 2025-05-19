@@ -1,0 +1,9 @@
+.task-title {
+    font-weight: bold;
+}
+
+.task-result {
+    font-size  : 24px;
+    font-weight: bolder;
+    color      : green;
+}
