@@ -23,6 +23,7 @@ function task01 () {
         document.getElementById('squareT01').innerHTML = res;
     } catch (err) {
         document.getElementById('squareT01').innerHTML = 'no result';
+        console.log(err);
         alert(err);
     }
 }
@@ -59,6 +60,7 @@ function task02 () {
         resElement.setAttribute('class', 'task-result');
         resElement.innerHTML = 'Access allowed';
     } catch (err) {
+        console.log(err);
         alert(err);
         accessAllowedElement.setAttribute('hidden', 'true');
         accessDeniedElement.removeAttribute('hidden');
@@ -68,13 +70,45 @@ function task02 () {
 }
 
 // 3. Створіть клас MonthException, конструктор якого приймає параметр message і ініціалізує поле name значенням 'MonthException'.
-// Реалізуйте функцію showMonthName(month), в якій параметр month – це порядковий номер місяця в році. Функція повертає назву місяця відповідно до введеного номера місяця. У випадку некоректного вводу кидається ексепшн у вигляді об’єкта класу MonthException з повідомленням 'Incorrect month number'.
+// Реалізуйте функцію showMonthName(month), в якій параметр month – це порядковий номер місяця в році.
+// Функція повертає назву місяця відповідно до введеного номера місяця. У випадку некоректного вводу кидається ексепшн у вигляді
+// об’єкта класу MonthException з повідомленням 'Incorrect month number'.
 // Напишіть код, який використовує цю функцію, передбачте обробку можливих винятків.
 // 	Приклад роботи програми:
 // > console.log(showMonthName(5));
 // May
 // > console.log(showMonthName(14));
 // MonthException Incorrect month number
+class MonthException {
+    constructor (message) {
+        this.name = 'MonthException';
+        this.message = message;
+    }
+}
+
+function showMonthName (month) {
+    if (month < 1 || month > 12) {
+        throw new MonthException('Incorrect month number');
+    }
+
+    return new Date(0, month, 0).toLocaleDateString('en-UK', {
+        month: 'long',
+    });
+}
+
+function task03 () {
+    const resultElement = document.getElementById('resultT03');
+    try {
+        const month = document.getElementById('monthT03').value;
+        const result = showMonthName(month);
+        resultElement.innerHTML = result;
+        console.log(result);
+    } catch (err) {
+        const resultError = `${err.name}: ${err.message}`;
+        resultElement.innerHTML = resultError;
+        console.log(resultError);
+    }
+}
 
 // 4. Реалізуйте функцію showUser(id), яка приймає параметром користувацьке id і повертає об’єкт, який містить значення переданої id. Також функція викидає помилку у разі якщо введено від’ємне id.
 // 	Реалізуйте функцію showUsers(ids), яка приймає параметром масив користувацьких айді ids, перевіряє з використанням функції showUser() кожен елемент масиву ids на коректність, в разі виключної ситуації виводить повідомлення про помилку. Функція showUsers(ids) повертає масив об’єктів, де значеннями ключів є коректні елементи ids.
